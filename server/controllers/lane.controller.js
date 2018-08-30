@@ -1,4 +1,5 @@
 import Lane from '../models/lane';
+import Note from '../models/note';
 import uuid from 'uuid';
 
 // Get all lanes
@@ -29,6 +30,8 @@ export function addLane(req, res) {
 }
 
 // Delete lane by laneID
+// dla każdego elementu w notes znajdź jego odpowiednik w Note i usuń
+// Na końcu usuń całą kolumne (lane);
 
 export function deleteLane(req, res) {
   Lane.findOne({ id: req.params.laneId }).exec((err, lane) => {
@@ -36,6 +39,10 @@ export function deleteLane(req, res) {
       res.status(500).send(err);
     }
 
+    const notes = lane.notes;
+    notes.forEach(note => {
+      Note.findByIdAndRemove(note._id).exec();
+    });
     lane.remove(() => {
       res.status(200).end();
     });
