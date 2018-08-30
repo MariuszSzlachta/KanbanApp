@@ -9,4 +9,7 @@ router.route('/notes').post(NoteController.addNote);
 // Delete note
 router.route('/notes/:noteId').delete(NoteController.removeNote);
 
+// Edit task in note
+router.route('/notes/:noteId').put(NoteController.editTask);
+
 export default router;

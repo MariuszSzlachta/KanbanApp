@@ -50,7 +50,6 @@ export function deleteLane(req, res) {
 }
 
 // edit lane
-
 export function editLane(req, res) {
   Lane.findOne({ id: req.params.laneId }).exec((err, lane) => {
     if (err) {
@@ -58,12 +57,11 @@ export function editLane(req, res) {
     }
 
     lane.name = req.body.name;
-    lane.save((err, saved) => {
+    lane.save((error, saved) => {
       if (err) {
-        res.status(500).send(err);
+        res.status(500).send(error);
       }
       res.json(saved);
-    })
-
+    });
   });
 }
