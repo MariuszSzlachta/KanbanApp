@@ -1,5 +1,5 @@
 // Import Actions
-import { CREATE_LANE, UPDATE_LANE, DELETE_LANE } from './LaneActions';
+import { CREATE_LANE, UPDATE_LANE, DELETE_LANE, EDIT_LANE } from './LaneActions';
 import { CREATE_NOTE, DELETE_NOTE } from '../Note/NoteActions';
 
 
@@ -35,6 +35,13 @@ const lanes = (state = initialState, action) => {
         if (lane.id === action.laneId) {
           const notes = state.filter(note => note.id !== action.noteId);
           return { ...lane, notes };
+        }
+        return lane;
+      });
+    case EDIT_LANE:
+      return state.map(lane => {
+        if (lane.id === action.laneId) {
+          return { ...lane, editing: true };
         }
         return lane;
       });
