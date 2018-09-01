@@ -1,24 +1,18 @@
 import Lane from '../models/lane';
-import Note from '../models/note';
 import uuid from 'uuid';
 
-// Get all lanes
-export function getLanes(req, res) {
-  Lane.find().exec((err, lanes) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.json({ lanes });
-  });
+export function getSomething(req, res) {
+  return res.status(200).end();
 }
 
-// Add lane
 export function addLane(req, res) {
   if (!req.body.name) {
     res.status(403).end();
   }
 
   const newLane = new Lane(req.body);
+
+  newLane.notes = [];
 
   newLane.id = uuid();
   newLane.save((err, saved) => {
@@ -29,39 +23,41 @@ export function addLane(req, res) {
   });
 }
 
-// Delete lane by laneID
-// dla każdego elementu w notes znajdź jego odpowiednik w Note i usuń
-// Na końcu usuń całą kolumne (lane);
-
 export function deleteLane(req, res) {
-  Lane.findOne({ id: req.params.laneId }).exec((err, lane) => {
-    if (err) {
+  Lane.findOne({id: req.params.laneId}).exec( (err, lane) => {
+    if(err) {
       res.status(500).send(err);
     }
-
-    const notes = lane.notes;
-    notes.forEach(note => {
-      Note.findByIdAndRemove(note._id).exec();
-    });
-    lane.remove(() => {
-      res.status(200).end();
-    });
+    if(lane) {
+      lane.remove(() => {
+        res.status(200).send('Lane deleted succesfull');
+      });
+    } else {
+      res.status(500).send('Bad argument!');
+    }
   });
 }
 
-// edit lane
-export function editLane(req, res) {
+export function editLane(req, res) {  
   Lane.findOne({ id: req.params.laneId }).exec((err, lane) => {
     if (err) {
-      res.status(500).send(err);
-    }
-
-    lane.name = req.body.name;
-    lane.save((error, saved) => {
+       res.status(500).send(err);
+     }
+     lane.name = req.body.name;
+     lane.save((err, saved) => {
       if (err) {
-        res.status(500).send(error);
+        res.status(500).send(err);
       }
       res.json(saved);
     });
+  })
+}
+
+export function getLanes(req, res) {
+  Lane.find().exec((err, lanes) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json({ lanes });
   });
 }

@@ -1,15 +1,19 @@
 import React, { PropTypes } from 'react';
-import Edit from '../../components/Edit/Edit';
 import Note from './Note';
-import styles from './Notes.css';
+import Edit from '../../components/Edit';
 
-// ! sprawdzić style
-const Notes = ({ notes, laneId, editNote, updateNote, deleteNote }) => {
-  return (<ul className="notes">{notes.map(note =>
+// import styles from './Note.css';
+
+const Notes = ({ notes, laneId, editNote, updateNote, deleteNote, moveWithinLane }) => {
+  return (<ul>{notes.map((note) =>
     <Note
       id={note.id}
       key={note.id}
       editing={note.editing}
+      laneId={laneId}
+      task={note.task}
+      moveWithinLane={moveWithinLane}
+      _id={note._id}
     >
       <Edit
         editing={note.editing}
@@ -19,7 +23,8 @@ const Notes = ({ notes, laneId, editNote, updateNote, deleteNote }) => {
           ...note,
           task,
           editing: false,
-        })}
+        }
+        )}
         onDelete={() => deleteNote(note.id, laneId)}
       />
     </Note>
@@ -27,11 +32,13 @@ const Notes = ({ notes, laneId, editNote, updateNote, deleteNote }) => {
 };
 
 Notes.propTypes = {
-  notes: PropTypes.array,
+  deleteNote: PropTypes.func,
+  updateNote: PropTypes.func,
   laneId: PropTypes.string,
   editNote: PropTypes.func,
-  updateNote: PropTypes.func,
-  deleteNote: PropTypes.func,
+  notes: PropTypes.array,
+  task: PropTypes.string,
+  moveWithinLane: PropTypes.func,
 };
 
 export default Notes;
