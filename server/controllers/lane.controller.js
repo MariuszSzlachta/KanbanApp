@@ -1,4 +1,5 @@
 import Lane from '../models/lane';
+import Note from '../models/note';
 import uuid from 'uuid';
 
 export function getSomething(req, res) {
@@ -12,8 +13,6 @@ export function addLane(req, res) {
 
   const newLane = new Lane(req.body);
 
-  newLane.notes = [];
-
   newLane.id = uuid();
   newLane.save((err, saved) => {
     if (err) {
@@ -24,21 +23,25 @@ export function addLane(req, res) {
 }
 
 export function deleteLane(req, res) {
-  Lane.findOne({id: req.params.laneId}).exec( (err, lane) => {
-    if(err) {
+  Lane.findOne({ id: req.params.laneId }).exec((err, lane) => {
+    if (err) {
       res.status(500).send(err);
     }
-    if(lane) {
-      lane.remove(() => {
-        res.status(200).send('Lane deleted succesfull');
+
+    const notes = lane.notes;
+    console.log(notes);
+    notes.forEach(note => {
+      Note.findByIdAndRemove(note._id).exec(() => {
+        console.log(note._id);
       });
-    } else {
-      res.status(500).send('Bad argument!');
-    }
+    });
+    lane.remove(() => {
+      res.status(200).end();
+    });
   });
 }
 
-export function editLane(req, res) {  
+export function editLane(req, res) {
   Lane.findOne({ id: req.params.laneId }).exec((err, lane) => {
     if (err) {
        res.status(500).send(err);
