@@ -1,5 +1,5 @@
 const config = {
-  mongoURL: 'mongodb://admin:admin1234@ds249092.mlab.com:49092/kanban' || process.env.MONGO_URL || 'mongodb://localhost:27017/mern-starter',
+  mongoURL: process.env.MONGO_URL || 'mongodb://admin:admin1234@ds249092.mlab.com:49092/kanban',
   port: process.env.PORT || 8000,
 };
 
