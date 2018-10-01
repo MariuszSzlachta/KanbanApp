@@ -28,8 +28,9 @@ This is isomorphic Kanban Board app. It means it uses server side rendering. Dat
 
 ## Functionality
 
-1. You can add, remove lanes.
+1. You can add, remove, edit lanes.
 2. You can add, remove, edit, drag between lanes.
+3. If you want to edit click/tap on line/note text and enter new one then hit enter/tap enywhere else.
 
 ## Known issues
 
