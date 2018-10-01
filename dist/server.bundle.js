@@ -178,7 +178,7 @@
 	  var assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpackAssets);
 	  var chunkManifest = process.env.webpackChunkAssets && JSON.parse(process.env.webpackChunkAssets);
 
-	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        ' + (isProdMode ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n        <link href=\'https://fonts.googleapis.com/css?family=Lato:400,300,700\' rel=\'stylesheet\' type=\'text/css\'/>\n        <link rel="shortcut icon" href="http://res.cloudinary.com/hashnode/image/upload/v1455629445/static_imgs/mern/mern-favicon-circle-fill.png" type="image/png" />\n      </head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (isProdMode ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (isProdMode ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (isProdMode ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
+	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.base.toString() + '\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        ' + (isProdMode ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n        <link href=\'https://fonts.googleapis.com/css?family=Lato:400,300,700\' rel=\'stylesheet\' type=\'text/css\'/>\n      </head>\n      <body>\n        <div id="root">' + html + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (isProdMode ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (isProdMode ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (isProdMode ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n      </body>\n    </html>\n  ';
 	};
 
 	var renderError = function renderError(err) {
@@ -223,6 +223,7 @@
 	    console.log('MERN is running on port: ' + _config2.default.port + '! Build something amazing!'); // eslint-disable-line
 	  }
 	});
+	// comment
 
 	exports.default = app;
 	/* WEBPACK VAR INJECTION */}.call(exports, "server"))
@@ -853,7 +854,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -877,91 +878,91 @@
 	var initialState = {};
 
 	function moveNotes(array, sourceNoteId, targetNoteId) {
-	  var sourceIndex = array.indexOf(sourceNoteId);
-	  var targetIndex = array.indexOf(targetNoteId);
-	  var arrayCopy = [].concat(_toConsumableArray(array));
+	    var sourceIndex = array.indexOf(sourceNoteId);
+	    var targetIndex = array.indexOf(targetNoteId);
+	    var arrayCopy = [].concat(_toConsumableArray(array));
 
-	  arrayCopy.splice(targetIndex, 0, arrayCopy.splice(sourceIndex, 1)[0]);
-	  return arrayCopy;
+	    arrayCopy.splice(targetIndex, 0, arrayCopy.splice(sourceIndex, 1)[0]);
+	    return arrayCopy;
 	}
 
 	function lanes() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-	  var action = arguments[1];
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+	    var action = arguments[1];
 
-	  switch (action.type) {
+	    switch (action.type) {
 
-	    case _LaneActions.CREATE_LANE:
-	    case _LaneActions.UPDATE_LANE:
-	      return _extends({}, state, _defineProperty({}, action.lane.id, action.lane));
+	        case _LaneActions.CREATE_LANE:
+	        case _LaneActions.UPDATE_LANE:
+	            return _extends({}, state, _defineProperty({}, action.lane.id, action.lane));
 
-	    case _LaneActions.EDIT_LANE:
-	      {
-	        var lane = _extends({}, state[action.laneId], { editing: true });
-	        return _extends({}, state, _defineProperty({}, action.laneId, lane));
-	      }
+	        case _LaneActions.EDIT_LANE:
+	            {
+	                var lane = _extends({}, state[action.laneId], { editing: true });
+	                return _extends({}, state, _defineProperty({}, action.laneId, lane));
+	            }
 
-	    case _LaneActions.CREATE_LANES:
-	      return _extends({}, action.lanes);
+	        case _LaneActions.CREATE_LANES:
+	            return _extends({}, action.lanes);
 
-	    case _NoteActions.DELETE_NOTE:
-	      {
-	        var newLane = _extends({}, state[action.laneId]);
-	        newLane.notes = newLane.notes.filter(function (noteId) {
-	          return noteId !== action.noteId;
-	        });
-	        return _extends({}, state, _defineProperty({}, action.laneId, newLane));
-	      }
+	        case _NoteActions.DELETE_NOTE:
+	            {
+	                var newLane = _extends({}, state[action.laneId]);
+	                newLane.notes = newLane.notes.filter(function (noteId) {
+	                    return noteId !== action.noteId;
+	                });
+	                return _extends({}, state, _defineProperty({}, action.laneId, newLane));
+	            }
 
-	    case _NoteActions.CREATE_NOTE:
-	      {
-	        var _newLane = _extends({}, state[action.laneId]);
-	        _newLane.notes = _newLane.notes.concat(action.note.id);
-	        return _extends({}, state, _defineProperty({}, action.laneId, _newLane));
-	      }
+	        case _NoteActions.CREATE_NOTE:
+	            {
+	                var _newLane = _extends({}, state[action.laneId]);
+	                _newLane.notes = _newLane.notes.concat(action.note.id);
+	                return _extends({}, state, _defineProperty({}, action.laneId, _newLane));
+	            }
 
-	    case _LaneActions.DELETE_LANE:
-	      return (0, _omit2.default)(state, action.laneId);
+	        case _LaneActions.DELETE_LANE:
+	            return (0, _omit2.default)(state, action.laneId);
 
-	    case _NoteActions.MOVE_WITHIN_LANE:
-	      {
-	        var _newLane2 = _extends({}, state[action.laneId]);
-	        _newLane2.notes = moveNotes(_newLane2.notes, action.sourceId, action.targetId);
-	        return _extends({}, state, _defineProperty({}, action.laneId, _newLane2));
-	      }
+	        case _NoteActions.MOVE_WITHIN_LANE:
+	            {
+	                var _newLane2 = _extends({}, state[action.laneId]);
+	                _newLane2.notes = moveNotes(_newLane2.notes, action.sourceId, action.targetId);
+	                return _extends({}, state, _defineProperty({}, action.laneId, _newLane2));
+	            }
 
-	    case _LaneActions.MOVE_BETWEEN_LANES:
-	      {
-	        var _extends7;
+	        case _LaneActions.MOVE_BETWEEN_LANES:
+	            {
+	                var _extends7;
 
-	        var targetLane = _extends({}, state[action.targetLaneId]);
-	        targetLane.notes = [].concat(_toConsumableArray(targetLane.notes), [action.noteId]);
-	        var sourceLane = _extends({}, state[action.sourceLaneId]);
-	        sourceLane.notes = sourceLane.notes.filter(function (noteId) {
-	          return noteId !== action.noteId;
-	        });
-	        return _extends({}, state, (_extends7 = {}, _defineProperty(_extends7, action.targetLaneId, targetLane), _defineProperty(_extends7, action.sourceLaneId, sourceLane), _extends7));
-	      }
+	                var targetLane = _extends({}, state[action.targetLaneId]);
+	                targetLane.notes = [].concat(_toConsumableArray(targetLane.notes), [action.noteId]);
+	                var sourceLane = _extends({}, state[action.sourceLaneId]);
+	                sourceLane.notes = sourceLane.notes.filter(function (noteId) {
+	                    return noteId !== action.noteId;
+	                });
+	                return _extends({}, state, (_extends7 = {}, _defineProperty(_extends7, action.targetLaneId, targetLane), _defineProperty(_extends7, action.sourceLaneId, sourceLane), _extends7));
+	            }
 
-	    case _LaneActions.REMOVE_FROM_LANE:
-	      {
-	        var _sourceLane = _extends({}, state[action.sourceLaneId]);
-	        _sourceLane.notes = _sourceLane.notes.filter(function (noteId) {
-	          return noteId !== action.noteId;
-	        });
-	        return _extends({}, state, _defineProperty({}, action.sourceLaneId, _sourceLane));
-	      }
+	        case _LaneActions.REMOVE_FROM_LANE:
+	            {
+	                var _sourceLane = _extends({}, state[action.sourceLaneId]);
+	                _sourceLane.notes = _sourceLane.notes.filter(function (noteId) {
+	                    return noteId !== action.noteId;
+	                });
+	                return _extends({}, state, _defineProperty({}, action.sourceLaneId, _sourceLane));
+	            }
 
-	    case _LaneActions.PUSH_TO_LANE:
-	      {
-	        var _targetLane = _extends({}, state[action.targetLaneId]);
-	        _targetLane.notes = [].concat(_toConsumableArray(_targetLane.notes), [action.noteId]);
-	        return _extends({}, state, _defineProperty({}, action.targetLaneId, _targetLane));
-	      }
+	        case _LaneActions.PUSH_TO_LANE:
+	            {
+	                var _targetLane = _extends({}, state[action.targetLaneId]);
+	                _targetLane.notes = [].concat(_toConsumableArray(_targetLane.notes), [action.noteId]);
+	                return _extends({}, state, _defineProperty({}, action.targetLaneId, _targetLane));
+	            }
 
-	    default:
-	      return state;
-	  }
+	        default:
+	            return state;
+	    }
 	}
 
 /***/ },
@@ -1377,7 +1378,6 @@
 
 	    case _NoteActions.EDIT_NOTE:
 	      var note = _extends({}, state[action.noteId], { editing: true });
-	      console.log(_extends({}, state));
 	      return _extends({}, state, _defineProperty({}, action.noteId, note));
 
 	    case _NoteActions.DELETE_NOTE:
@@ -1655,6 +1655,7 @@
 
 	var _Lane = {
 	  "AddLane": "_2Msbkmis0P-o-hcRA-XpQ3",
+	  "Lanes": "_4qC_EovBkIVGj9_nmh-wl",
 	  "Lane": "E9f3tcAtlbzZIgOcGyfn9",
 	  "LaneHeader": "_11M_ALj1hYYM2fq2bd6Z1r",
 	  "LaneName": "_1H6sdUyNzRy2Te_awt2TKp",
@@ -1736,6 +1737,7 @@
 
 	var _Lane = {
 	  "AddLane": "_2Msbkmis0P-o-hcRA-XpQ3",
+	  "Lanes": "_4qC_EovBkIVGj9_nmh-wl",
 	  "Lane": "E9f3tcAtlbzZIgOcGyfn9",
 	  "LaneHeader": "_11M_ALj1hYYM2fq2bd6Z1r",
 	  "LaneName": "_1H6sdUyNzRy2Te_awt2TKp",
@@ -1751,7 +1753,7 @@
 	  var lanes = _ref.lanes;
 
 	  return _jsx('div', {
-	    className: 'lanes'
+	    className: _Lane2.default.Lanes
 	  }, void 0, lanes.map(function (lane) {
 	    return _jsx(_LaneContainer2.default, {
 	      className: 'lane',
@@ -1859,6 +1861,7 @@
 
 	var _Lane = {
 	  "AddLane": "_2Msbkmis0P-o-hcRA-XpQ3",
+	  "Lanes": "_4qC_EovBkIVGj9_nmh-wl",
 	  "Lane": "E9f3tcAtlbzZIgOcGyfn9",
 	  "LaneHeader": "_11M_ALj1hYYM2fq2bd6Z1r",
 	  "LaneName": "_1H6sdUyNzRy2Te_awt2TKp",
@@ -2391,11 +2394,8 @@
 	    }
 
 	    var notes = lane.notes;
-	    console.log(notes);
 	    notes.forEach(function (note) {
-	      _note2.default.findByIdAndRemove(note._id).exec(function () {
-	        console.log(note._id);
-	      });
+	      _note2.default.findByIdAndRemove(note._id).exec(function () {});
 	    });
 	    lane.remove(function () {
 	      res.status(200).end();

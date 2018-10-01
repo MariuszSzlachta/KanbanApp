@@ -1,14 +1,13 @@
 {
-  "name": "kanban--app",
-  "version": "1.0.0",
-  "description": "Kanban board isomorphic app",
+  "name": "mern-starter",
+  "version": "2.0.0",
+  "description": "Boilerplate project for building Isomorphic apps using React and Redux",
   "scripts": {
     "test": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/mern-test node_modules/.bin/nyc node --harmony-proxies node_modules/.bin/ava",
     "watch:test": "npm run test -- --watch",
     "cover": "nyc npm run test",
     "check-coverage": "nyc check-coverage --statements 100 --branches 100 --functions 100 --lines 100",
-    "start": "cross-env NODE_ENV=production node index.js",
-    "start:dev": "cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=development nodemon index.js",
+    "start": "cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=development nodemon index.js",
     "start:prod": "cross-env NODE_ENV=production node index.js",
     "bs": "npm run clean && npm run build && npm run build:server && npm run start:prod",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
@@ -23,10 +22,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MariuszSzlachta/KanbanApp"
+    "url": "git+https://github.com/Hashnode/mern-starter.git"
   },
-  "homepage": "https://kanban--app.herokuapp.com/",
-  "author": "Mariusz Szlachta",
+  "bugs": {
+    "url": "https://github.com/Hashnode/mern-starter/issues"
+  },
+  "homepage": "https://github.com/Hashnode/mern-starter#readme",
+  "author": "Prashant Abhishek <prashant.abhishek7g@gmail.com>, Mayank Chandola <imayankchd@gmail.com>, Sandeep Panda <sandeep@hashnode.com>, Syed Fazle Rahman <fazle@hashnode.com>, Alkshendra Maurya <alkshendra@hashnode.com>",
   "license": "MIT",
   "dependencies": {
     "babel-core": "^6.9.1",
@@ -53,7 +55,9 @@
     "react-router": "^2.4.1",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
-    "sanitize-html": "^1.11.4",
+    "sanitize-html": "^1.11.4"
+  },
+  "devDependencies": {
     "ava": "^0.15.2",
     "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.4",
@@ -112,7 +116,6 @@
     "webpack-hot-middleware": "^2.10.0",
     "webpack-manifest-plugin": "^1.0.1"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">=4"
   },

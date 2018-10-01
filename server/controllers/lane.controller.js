@@ -29,10 +29,8 @@ export function deleteLane(req, res) {
     }
 
     const notes = lane.notes;
-    console.log(notes);
     notes.forEach(note => {
       Note.findByIdAndRemove(note._id).exec(() => {
-        console.log(note._id);
       });
     });
     lane.remove(() => {

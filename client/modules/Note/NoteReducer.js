@@ -13,7 +13,6 @@ export default function notes(state = initialState, action) {
 
     case EDIT_NOTE:
       const note = { ...state[action.noteId], editing: true };
-      console.log({...state});
       return { ...state, [action.noteId]: note };
 
     case DELETE_NOTE:

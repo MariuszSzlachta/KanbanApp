@@ -5,3 +5,8 @@
   margin: 0 auto;
   background-color: #232323;
 }
+@media (max-width: 992px) {
+  .container {
+    height: 100%;
+  }
+}
